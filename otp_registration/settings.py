@@ -10,7 +10,18 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+
+
+import os
+from dotenv import load_dotenv
 from pathlib import Path
+
+
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -84,17 +95,24 @@ DATABASES = {
 
 
 # Email configuration (for sending email OTP via SendGrid)
+import os
+
+# Email configuration (for sending email OTP via SendGrid)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'apikey'  # Use SendGrid API key
-EMAIL_HOST_PASSWORD = 'your_sendgrid_api_key'
+EMAIL_HOST_USER = 'apikey'  # Required for SendGrid
+EMAIL_HOST_PASSWORD = os.getenv('sendgrid_id')  # Fetch the SendGrid API key from environment variables
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'avi8654340@gmail.com')  # Fetch from environment or use default
+
+
+
 
 # Twilio configuration (for sending SMS OTP)
-TWILIO_ACCOUNT_SID = 'ACdbd72d9e9db84024ad723a7814186b7a'
-TWILIO_AUTH_TOKEN = 'e12e34020b0785c414060ec3433fe263'
-TWILIO_PHONE_NUMBER = '+17073823840'
+TWILIO_ACCOUNT_SID = os.getenv('account_sid')
+TWILIO_AUTH_TOKEN = os.getenv('auth_token')
+TWILIO_PHONE_NUMBER = os.getenv('twilio_phone_number')
 
 
 
