@@ -20,7 +20,6 @@ import os
 
 
 
-os.getenv('sendgrid_id')
 
 
 
