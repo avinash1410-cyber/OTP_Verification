@@ -1,30 +1,7 @@
-# users/utils.py
-
 from twilio.rest import Client
-import sendgrid
-from sendgrid.helpers.mail import Mail
-import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 import os
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
-
-import os
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # SendGrid email OTP sending function
 def send_email_otp(email, otp):
@@ -40,7 +17,7 @@ def send_email_otp(email, otp):
     
     try:
         # Initialize SendGrid client with API key
-        sg = SendGridAPIClient(os.getenv('sendgrid_id'))
+        sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
         
         # Send the email
         response = sg.send(message)
@@ -53,33 +30,11 @@ def send_email_otp(email, otp):
     except Exception as e:
         print(f"Error sending email: {str(e)}")
 
-
-
-
-
-
-#Dummy
-
-# users/utils.py
-
-# Dummy SMS OTP sending function
-# def send_mobile_otp(mobile_number, otp):
-#     print(f"Sending SMS OTP to {mobile_number}: {otp}")
-#     return 200  # Simulate a response ID
-
-# Dummy email OTP sending function
-# def send_email_otp(email, otp):
-#     print(f"Sending Email OTP to {email}: {otp}")
-#     return 200  # Simulate a successful HTTP status code
-
-
-
-
 # Twilio SMS OTP sending function
 def send_mobile_otp(mobile_number, otp):
-    account_sid = os.getenv('account_sid')
-    auth_token = os.getenv('auth_token')
-    twilio_phone_number = os.getenv('twilio_phone_number')
+    account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+    auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+    twilio_phone_number = os.getenv('TWILIO_PHONE_NUMBER')
 
     client = Client(account_sid, auth_token)
     message = client.messages.create(
