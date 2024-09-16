@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify OTP</title>
+    <title>Verify OTP and Set Password</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -75,12 +75,14 @@
 
 <body>
     <div class="container">
-        <h2>Verify Your OTP</h2>
+        <h2>Verify OTP and Set Password</h2>
         <form method="POST">
             {% csrf_token %}
             <input type="text" name="email_otp" placeholder="Enter Email OTP" required>
             <input type="text" name="mobile_otp" placeholder="Enter Mobile OTP" required>
-            <button type="submit">Verify</button>
+            <input type="password" name="password" placeholder="Enter New Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm New Password" required>
+            <button type="submit">Verify and Set Password</button>
         </form>
     </div>
 </body>

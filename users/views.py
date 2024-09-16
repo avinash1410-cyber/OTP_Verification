@@ -24,10 +24,9 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')  # Redirect to the home page after login
+            return redirect('profile')  # Redirect to the home page after login
         else:
             messages.error(request, 'Invalid username or password.')
-
     return render(request, 'login.html')
 
 
@@ -129,9 +128,10 @@ def verify_otp(request):
         # Retrieve OTPs from the database
         email_otp = OTP.objects.get(id=email_otp_id)
         mobile_otp = OTP.objects.get(id=mobile_otp_id)
+        password = request.POST.get('password')
 
         # Verify email OTP
-        if email_otp and email_otp.otp_code == email_otp_input:
+        if email_otp and email_otp.otp_code == email_otp_input or mobile_otp.otp_code==email_otp_input:
             email_verified = True
             print("Successfully verified Email OTP")
         else:
@@ -148,7 +148,6 @@ def verify_otp(request):
 
         # If both OTPs are verified, create the user
         if email_verified or mobile_verified:
-            password = request.POST.get('password')  # Get password from user input (or use session)
             user = CustomUser.objects.create_user(
                 username=username,
                 email=email,
