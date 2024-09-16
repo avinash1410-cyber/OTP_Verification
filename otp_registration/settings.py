@@ -61,6 +61,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'otp_registration.wsgi.application'
 
+
+LOGIN_REDIRECT_URL = 'profile'
+
+
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 

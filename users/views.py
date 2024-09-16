@@ -5,10 +5,30 @@ from django.shortcuts import render, redirect
 from .models import CustomUser, OTP
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
+
+@login_required
+def profile_view(request):
+    return render(request, 'profile.html')
 
 
 
 
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')  # Redirect to the home page after login
+        else:
+            messages.error(request, 'Invalid username or password.')
+
+    return render(request, 'login.html')
 
 
 
@@ -127,7 +147,7 @@ def verify_otp(request):
             return render(request, 'verify_otp.html', {'error': 'Invalid mobile OTP'})
 
         # If both OTPs are verified, create the user
-        if email_verified and mobile_verified:
+        if email_verified or mobile_verified:
             password = request.POST.get('password')  # Get password from user input (or use session)
             user = CustomUser.objects.create_user(
                 username=username,
@@ -149,6 +169,7 @@ def verify_otp(request):
 
 
 
-def home(request):
-    user = request.user
-    return render(request, 'home.html', {'username': user.username})
+
+
+def success(request):
+    return render(request, 'success.html')
