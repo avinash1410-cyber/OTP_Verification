@@ -1,3 +1,10 @@
-twilio  # Twilio library for sending SMS OTPs
-sendgrid  # SendGrid library for sending email OTPs
+twilio
+sendgrid
 python-dotenv
+asgiref==3.8.1
+Django==4.2.4
+dnspython==2.6.1
+PyJWT==2.9.0
+sqlparse==0.5.1
+tzdata==2024.1
+gunicorn==23.0.0
