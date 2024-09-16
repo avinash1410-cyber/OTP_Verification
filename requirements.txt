@@ -1,3 +1,3 @@
-twilio==7.19.0  # Twilio library for sending SMS OTPs
-sendgrid==6.10.0  # SendGrid library for sending email OTPs
+twilio  # Twilio library for sending SMS OTPs
+sendgrid  # SendGrid library for sending email OTPs
 python-dotenv
